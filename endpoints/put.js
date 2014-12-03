@@ -1,7 +1,7 @@
 module.exports = put
 
 var async = require('async')
-  , _ = require('lodash')
+  , extend = require('lodash.assign')
 
 function put(service, urlRoot, router, logger, middleware) {
 
@@ -27,7 +27,7 @@ function put(service, urlRoot, router, logger, middleware) {
 
           // Only appending _id to errors object if id isnt in URL
           if (!req.params.id) {
-            error = _.extend({ _id: body._id }, error)
+            error = extend({ _id: body._id }, error)
           }
           cb(null, error)
         } else {
