@@ -10,7 +10,7 @@ var routes =
 
 function buildApi(service, urlRoot, router, logger, middleware, verbs) {
 
-  if (!Array.isArray(middleware) || typeof middleware !== 'function') throw new Error('Middleware is not defined')
+  if (!Array.isArray(middleware) && typeof middleware !== 'function') throw new Error('Middleware is not defined')
 
   // Support all verbs by default
   if (!Array.isArray(verbs)) verbs = [ 'get', 'post', 'put', 'patch', 'delete' ]
