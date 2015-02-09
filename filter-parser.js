@@ -23,7 +23,7 @@ function createFilterParser(schema) {
             newValue.push(schema.castProperty(type, item))
           })
           value = newValue
-        } else if (typeof value === 'object') {
+        } else if (typeof value === 'object' && null !== value) {
           value = parseObject(value, key)
         } else {
           value = schema.castProperty(type, value)

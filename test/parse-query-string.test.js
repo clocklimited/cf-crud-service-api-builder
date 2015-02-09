@@ -101,6 +101,14 @@ describe('query string parser', function () {
     })
   })
 
+  it('should default req.query.sort to undefined (number)', function (done) {
+    var req = { query: { sort: '1' } }
+    parseQueryString(req, {}, function () {
+      assert.equal(undefined, req.query.sort)
+      done()
+    })
+  })
+
   it('should default req.query.sort direction to "asc"', function (done) {
     var req = { query: { sort: JSON.stringify([ 'a' ]) } }
     parseQueryString(req, {}, function () {

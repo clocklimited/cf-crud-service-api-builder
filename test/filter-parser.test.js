@@ -60,6 +60,12 @@ describe('filter parser', function () {
     assert.equal('string', typeof params.string[0])
   })
 
+  it('should not error on null', function () {
+    var params = { number: null }
+    params = filterParser(params)
+    assert.equal(null, params.number)
+  })
+
 })
 
 function createSchema() {
