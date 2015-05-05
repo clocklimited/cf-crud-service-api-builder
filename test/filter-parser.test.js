@@ -66,6 +66,22 @@ describe('filter parser', function () {
     assert.equal(null, params.number)
   })
 
+  it('should not error on unknown property', function () {
+    assert.doesNotThrow(function () {
+      filterParser({ unknown: 'this should not error' })
+    })
+  })
+
+  it('should not error on unknown nested property', function () {
+    assert.doesNotThrow(function () {
+      filterParser({ string: { unknown: { string: 'this should not error'} } })
+    })
+  })
+
+  it('should strip unknown properties', function () {
+    assert.deepEqual(filterParser({ unknown: 'this should not error' }), {})
+  })
+
 })
 
 function createSchema() {
