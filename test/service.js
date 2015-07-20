@@ -4,9 +4,7 @@ var Service = require('crud-service')
   , save = require('save')
   , schemata = require('schemata')
   , validity = require('validity')
-  , logger = { debug: noop, info: noop, warn: noop, error: noop }
-
-function noop() {}
+  , logger = require('mc-logger')
 
 function createService() {
   return new Service('thing', save('thing', { logger: logger }), createSchema())

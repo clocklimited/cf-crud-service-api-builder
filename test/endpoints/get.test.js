@@ -2,13 +2,11 @@ var createGetEndpoint = require('../../endpoints/get')
   , express = require('express')
   , createService = require('../service')
   , request = require('supertest')
-  , logger = { debug: noop, info: noop, warn: noop, error: noop }
+  , logger = require('mc-logger')
   , assert = require('assert')
   , async = require('async')
   , extend = require('lodash.assign')
   , qs = require('querystring')
-
-function noop() {}
 
 describe('GET endpoint', function () {
 
