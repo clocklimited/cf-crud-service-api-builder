@@ -11,7 +11,10 @@ var routes =
 
 function buildApi(service, urlRoot, router, logger, middleware, verbs) {
 
-  var api = new EventEmitter()
+  function Api() { EventEmitter.call(this) }
+  Api.prototype = Object.create(EventEmitter.prototype)
+
+  var api = new Api()
 
   if (!Array.isArray(middleware) && typeof middleware !== 'function') throw new Error('Middleware is not defined')
 
