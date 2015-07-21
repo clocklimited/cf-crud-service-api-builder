@@ -31,7 +31,7 @@ function put(service, urlRoot, router, logger, middleware, emit) {
           }
           cb(null, error)
         } else {
-          emit('put', req, updatedObject)
+          emit('update', req, updatedObject)
           cb(null, updatedObject)
         }
       })
