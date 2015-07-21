@@ -18,6 +18,27 @@ var crudServiceApiBuilder = require('cf-crud-service-api-builder')
 crudServiceApiBuilder(service, '/widgets', router, logger, middleware)
 ```
 
+### Events
+
+When using the api builder, you can listen for certain events so that you can add hooks to perform your own actions after a request has been succesful. e.g
+
+```js
+
+var api = crudServiceApiBuilder(service, '/article', router, logger, middleware)
+
+api.on('create', function (req, newArticle) {
+  // do whatever you like with the req and article object
+})
+
+```
+
+Supported events are:
+
+* `create`
+* `update`
+* `partialUpdate`
+* `delete`
+
 ## Credits
 Built by developers at [Clock](http://clock.co.uk).
 
