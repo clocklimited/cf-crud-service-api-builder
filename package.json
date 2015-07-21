@@ -31,6 +31,7 @@
     "express": "^3.18.4",
     "istanbul": "0",
     "jshint": "2",
+    "mc-logger": "0.0.0",
     "mocha": "1",
     "save": "0.0.20",
     "schemata": "^2.0.2",

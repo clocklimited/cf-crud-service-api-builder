@@ -3,7 +3,7 @@ module.exports = put
 var async = require('async')
   , extend = require('lodash.assign')
 
-function put(service, urlRoot, router, logger, middleware) {
+function put(service, urlRoot, router, logger, middleware, emit) {
 
   // Optional :id url param to allow for arrays to be PUT
   router.put(urlRoot + '/:id?', middleware, function (req, res) {
@@ -31,6 +31,7 @@ function put(service, urlRoot, router, logger, middleware) {
           }
           cb(null, error)
         } else {
+          emit('update', req, updatedObject)
           cb(null, updatedObject)
         }
       })
