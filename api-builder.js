@@ -11,7 +11,7 @@ var routes =
 
 function buildApi(service, urlRoot, router, logger, middleware, verbs) {
 
-  var apiBuilder = new EventEmitter()
+  var api = new EventEmitter()
 
   if (!Array.isArray(middleware) && typeof middleware !== 'function') throw new Error('Middleware is not defined')
 
@@ -20,9 +20,9 @@ function buildApi(service, urlRoot, router, logger, middleware, verbs) {
 
   // Create endpoints
   verbs.forEach(function (verb) {
-    routes[verb](service, urlRoot, router, logger, middleware, apiBuilder.emit.bind(apiBuilder))
+    routes[verb](service, urlRoot, router, logger, middleware, api.emit.bind(api))
   })
 
-  return apiBuilder
+  return api
 
 }
