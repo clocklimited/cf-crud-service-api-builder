@@ -8,7 +8,7 @@ function post(service, urlRoot, router, logger, middleware, emit) {
       if (error) {
         res.status(400).json(error)
       } else {
-        emit('POST', req, newObject)
+        emit('post', req, newObject)
         res.status(201).json(newObject)
       }
     })

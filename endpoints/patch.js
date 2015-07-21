@@ -9,7 +9,7 @@ function patch(service, urlRoot, router, logger, middleware, emit) {
       if (error) {
         res.status(400).json(error)
       } else {
-        emit('PATCH', req, updatedObject)
+        emit('patch', req, updatedObject)
         res.status(200).json(updatedObject)
       }
     })

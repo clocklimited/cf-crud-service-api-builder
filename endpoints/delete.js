@@ -12,7 +12,7 @@ function del(service, urlRoot, router, logger, middleware, emit) {
           res.status(400).json(error)
         }
       } else {
-        emit('DELETE', req)
+        emit('delete', req)
         res.send(204)
       }
     })
