@@ -9,10 +9,14 @@ function createFilterParser(schema) {
         , ignoredTypes = [ Object, Array ]
         , type = null
 
-      if (parentKey) {
-        type = schema.schema[parentKey].type
-      } else {
-        type = schema.schema[key].type
+      try {
+        if (parentKey) {
+          type = schema.schema[parentKey].type
+        } else {
+          type = schema.schema[key].type
+        }
+      } catch(e) {
+        return
       }
 
       // Skip ignored types and Schemata Arrays
