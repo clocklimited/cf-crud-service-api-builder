@@ -66,6 +66,18 @@ describe('filter parser', function () {
     assert.equal(null, params.number)
   })
 
+  it('should not throw for keys that start with $', function () {
+    assert.doesNotThrow(function () {
+      var params = { $or: [] }
+      params = filterParser(params)
+    }, /Cannot read property 'type' of undefined/)
+  })
+
+  it('should work for keys that start with $', function () {
+    var params = { $or: [ { string: 1 } ] }
+    params = filterParser(params)
+    assert.equal(typeof params.$or[0].string, 'string')
+  })
 })
 
 function createSchema() {

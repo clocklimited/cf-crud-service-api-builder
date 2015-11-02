@@ -7,22 +7,18 @@ function createFilterParser(schema) {
     Object.keys(object).forEach(function (key) {
       var value = object[key]
         , ignoredTypes = [ Object, Array ]
-        , type = null
-
-      if (parentKey) {
-        type = schema.schema[parentKey].type
-      } else {
-        type = schema.schema[key].type
-      }
+        , type = getType(key, parentKey)
 
       // Skip ignored types and Schemata Arrays
       if (ignoredTypes.indexOf(type) === -1 && !type.arraySchema) {
-        if (Array.isArray(value)) {
-          var newValue = []
-          value.forEach(function (item) {
-            newValue.push(schema.castProperty(type, item))
+        if (isMongoOperator(key)) {
+          value = value.map(function (item) {
+            return parseObject(item)
           })
-          value = newValue
+        } else if (Array.isArray(value)) {
+          value = value.map(function (item) {
+            return schema.castProperty(type, item)
+          })
         } else if (typeof value === 'object' && null !== value) {
           value = parseObject(value, key)
         } else {
@@ -32,6 +28,21 @@ function createFilterParser(schema) {
       newObj[key] = value
     })
     return newObj
+  }
+
+  function getType(key, parentKey) {
+    if (parentKey) {
+      return schema.schema[parentKey].type
+    } else if (isMongoOperator(key)) {
+      return {}
+    } else {
+      return schema.schema[key].type
+    }
+  }
+
+  // Key starts with $ e.g. $or, $and
+  function isMongoOperator(key) {
+    return key.match(/^\$/)
   }
 
   return parseObject
