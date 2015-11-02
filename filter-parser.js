@@ -11,9 +11,13 @@ function createFilterParser(schema) {
 
       // Skip ignored types and Schemata Arrays
       if (ignoredTypes.indexOf(type) === -1 && !type.arraySchema) {
-        if (isMongoOperator(key)) {
+        if (isMongoOperator(key) && Array.isArray(value)) {
           value = value.map(function (item) {
-            return parseObject(item)
+            // Recursively cast objects like `{ $in: [1, 2, 3 }`
+            if (typeof item === 'object' && null !== item) return parseObject(item)
+
+            // Do a simple cast if they arent objects
+            return schema.castProperty(type, item)
           })
         } else if (Array.isArray(value)) {
           value = value.map(function (item) {

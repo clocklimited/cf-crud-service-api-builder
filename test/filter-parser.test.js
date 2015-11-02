@@ -78,6 +78,13 @@ describe('filter parser', function () {
     params = filterParser(params)
     assert.equal(typeof params.$or[0].string, 'string')
   })
+
+  it('should recursively for keys that start with $', function () {
+    var params = { $or: [ { string: { $in: [1] } }, { string: { $size: 0 } } ] }
+    params = filterParser(params)
+    assert.equal(params.$or[0].string.$in[0], '1')
+    assert.equal(params.$or[1].string.$size, '0')
+  })
 })
 
 function createSchema() {
