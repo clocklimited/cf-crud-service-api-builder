@@ -7,8 +7,11 @@ var createGetEndpoint = require('../../endpoints/get')
   , async = require('async')
   , extend = require('lodash.assign')
   , qs = require('querystring')
+  , createPipe = require('piton-pipe').createPipe
 
 describe('GET endpoint', function () {
+
+  var hooks = { 'read:response': createPipe() }
 
   describe('GET /prefix/:id', function () {
 
@@ -21,7 +24,7 @@ describe('GET endpoint', function () {
 
     it('should respond with a 200 when service#read() returns an object', function (done) {
       var app = express()
-      createGetEndpoint(service, '/things', app, logger, [])
+      createGetEndpoint(service, '/things', app, logger, [], null, hooks)
       request(app)
         .get('/things/1')
         .expect(200)
@@ -34,7 +37,7 @@ describe('GET endpoint', function () {
 
     it('should respond with a 404 when service.read() doesn’t return anything', function (done) {
       var app = express()
-      createGetEndpoint(service, '/things', app, logger, [])
+      createGetEndpoint(service, '/things', app, logger, [], null, hooks)
       request(app)
         .get('/things/2')
         .expect(404)
@@ -79,7 +82,7 @@ describe('GET endpoint', function () {
     it('should respond with a 200 and list of items when service.find() returns some objects', function (done) {
 
       var app = express()
-      createGetEndpoint(service, '/things', app, logger, [])
+      createGetEndpoint(service, '/things', app, logger, [], null, hooks)
       request(app)
         .get('/things')
         .expect(200)
@@ -118,7 +121,7 @@ describe('GET endpoint', function () {
     it.skip('should successfully paginate requests', function (done) {
 
       var app = express()
-      createGetEndpoint(service, '/things', app, logger, [])
+      createGetEndpoint(service, '/things', app, logger, [], null, hooks)
       request(app)
         .get('/things?' + qs.stringify({ pagination: JSON.stringify({ page: 3, pageSize: 7 }) }))
         .expect(200)

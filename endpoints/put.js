@@ -3,7 +3,7 @@ module.exports = put
 var async = require('async')
   , extend = require('lodash.assign')
 
-function put(service, urlRoot, router, logger, middleware, emit) {
+function put(service, urlRoot, router, logger, middleware, emit, hooks) {
 
   // Optional :id url param to allow for arrays to be PUT
   router.put(urlRoot + '/:id?', middleware, function (req, res) {
@@ -37,11 +37,18 @@ function put(service, urlRoot, router, logger, middleware, emit) {
       })
     }
 
-    async.map(req.body, update, function (error, updatedObjects) {
-      var status = updateError ? 400 : 200
-      // If array has a length of 1 then only return first item
-      res.status(status).json(updatedObjects.length === 1 ? updatedObjects[0] : updatedObjects)
+    hooks['update:request'].run(req.body, function (error, postHookBody) {
+      if (error) return res.status(400).json(error)
+      async.map(postHookBody, update, function (error, updatedObjects) {
+        var status = updateError ? 400 : 200
+        hooks['update:response'].run(updatedObjects, function (error, postHookUpdatedObject) {
+          if (error) return res.status(400).json(error)
+          // If array has a length of 1 then only return first item
+          res.status(status).json(postHookUpdatedObject.length === 1 ? postHookUpdatedObject[0] : postHookUpdatedObject)
+        })
+      })
     })
+
   })
 
 }
