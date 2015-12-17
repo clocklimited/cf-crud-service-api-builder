@@ -8,11 +8,27 @@ var routes =
       , 'delete': require('./endpoints/delete')
       }
   , EventEmitter = require('events').EventEmitter
+  , createPipe = require('piton-pipe').createPipe
 
 function buildApi(service, urlRoot, router, logger, middleware, verbs) {
 
   function Api() { EventEmitter.call(this) }
   Api.prototype = Object.create(EventEmitter.prototype)
+
+  var hooks =
+        { 'create:request': createPipe()
+        , 'create:response': createPipe()
+        , 'read:response': createPipe()
+        , 'update:request': createPipe()
+        , 'update:response': createPipe()
+        , 'partialUpdate:request': createPipe()
+        , 'partialUpdate:response': createPipe()
+        }
+
+  Api.prototype.hook = function (name, fn) {
+    if (!hooks[name]) throw new Error('No hook exists for: ' + name)
+    hooks[name].add(fn)
+  }
 
   var api = new Api()
 
@@ -23,7 +39,7 @@ function buildApi(service, urlRoot, router, logger, middleware, verbs) {
 
   // Create endpoints
   verbs.forEach(function (verb) {
-    routes[verb](service, urlRoot, router, logger, middleware, api.emit.bind(api))
+    routes[verb](service, urlRoot, router, logger, middleware, api.emit.bind(api), hooks)
   })
 
   return api
