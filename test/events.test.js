@@ -1,12 +1,13 @@
 var assert = require('assert')
   , crudServiceApiBuilder = require('../api-builder')
   , express = require('express')
+  , bodyParser = require('body-parser')
   , logger = require('mc-logger')
   , request = require('supertest')
   , service = require('./service')()
   , app = express()
 
-app.use(express.json())
+app.use(bodyParser.json())
 
 describe('events', function () {
 

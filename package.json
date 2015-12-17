@@ -28,15 +28,16 @@
     "piton-pipe": "0.0.4"
   },
   "devDependencies": {
-    "crud-service": "^0.1.0",
-    "express": "^3.18.4",
-    "istanbul": "0",
-    "jshint": "2",
+    "body-parser": "^1.14.2",
+    "crud-service": "^0.2.0",
+    "express": "^4.13.3",
+    "istanbul": "^0.4.1",
+    "jshint": "^2.9.1-rc1",
     "mc-logger": "0.0.0",
-    "mocha": "1",
-    "save": "0.0.20",
-    "schemata": "^2.0.2",
-    "supertest": "^0.15.0",
-    "validity": "0.0.3"
+    "mocha": "^2.3.4",
+    "save": "^2.1.1",
+    "schemata": "^3.0.0",
+    "supertest": "^1.1.0",
+    "validity": "^0.0.3"
   }
 }

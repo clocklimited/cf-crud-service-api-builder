@@ -2,6 +2,7 @@ var assert = require('assert')
   , async = require('async')
   , crudServiceApiBuilder = require('../api-builder')
   , express = require('express')
+  , bodyParser = require('body-parser')
   , logger = require('mc-logger')
   , request = require('supertest')
   , createService = require('./service')
@@ -14,7 +15,7 @@ describe('hooks', function () {
   beforeEach(function (done) {
     service = createService()
     app = express()
-    app.use(express.json())
+    app.use(bodyParser.json())
     var fixtures =
           [ { _id: '1', name: 'a' }
           , { _id: '2', name: 'b' }
