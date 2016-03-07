@@ -13,7 +13,7 @@ function del(service, urlRoot, router, logger, middleware, emit) {
         }
       } else {
         emit('delete', req)
-        res.send(204)
+        res.sendStatus(204)
       }
     })
   })
