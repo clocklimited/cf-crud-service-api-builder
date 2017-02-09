@@ -51,8 +51,15 @@ describe('filter parser', function () {
   it('should correctly parse objects that are of type String', function () {
     var params = { string: { a: 1, b: 2 } }
     params = filterParser(params)
-    assert.equal('string', typeof params.string.a)
+    assert.equal(typeof params.string.a, 'string')
   })
+
+  it('should parse $size to number', function () {
+    var params = { string: { $size: '0' } }
+    params = filterParser(params)
+    assert.equal(typeof params.string.$size, 'number')
+  })
+
 
   it('should correctly parse arrays that are of type String', function () {
     var params = { string: [ 1, 2, 3 ] }

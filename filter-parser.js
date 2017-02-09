@@ -26,7 +26,12 @@ function createFilterParser(schema) {
         } else if (typeof value === 'object' && null !== value) {
           value = parseObject(value, key)
         } else {
-          value = schema.castProperty(type, value)
+          // This needs to remain an int
+          if (key === '$size') {
+            value = Number(value)
+          } else {
+            value = schema.castProperty(type, value)
+          }
         }
       }
       newObj[key] = value
