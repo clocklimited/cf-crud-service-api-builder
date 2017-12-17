@@ -22,6 +22,7 @@
     "async": "^2.6.0",
     "piton-pipe": "0.0.4"
   },
+  "license": "ISC",
   "devDependencies": {
     "body-parser": "^1.18.2",
     "crud-service": "^1.0.0",

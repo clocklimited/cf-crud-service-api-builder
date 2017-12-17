@@ -68,4 +68,4 @@ Supported events are:
 Built by developers at [Clock](http://clock.co.uk).
 
 ## Licence
-Licensed under the [New BSD License](http://opensource.org/licenses/bsd-license.php)
+Licensed under the [ISC](http://opensource.org/licenses/isc)
