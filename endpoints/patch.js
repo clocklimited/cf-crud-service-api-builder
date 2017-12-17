@@ -1,7 +1,4 @@
-module.exports = patch
-
-function patch(service, urlRoot, router, logger, middleware, emit, hooks) {
-
+function patch (service, urlRoot, router, logger, middleware, emit, hooks) {
   router.patch(urlRoot + '/:id', middleware, function (req, res) {
     logger.debug('PATCH received', JSON.stringify(req.body))
     req.body._id = req.params.id
@@ -20,7 +17,7 @@ function patch(service, urlRoot, router, logger, middleware, emit, hooks) {
         }
       })
     })
-
   })
-
 }
+
+module.exports = patch

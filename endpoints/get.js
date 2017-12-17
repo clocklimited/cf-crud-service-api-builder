@@ -1,10 +1,7 @@
-module.exports = get
+const parseQueryString = require('../parse-query-string')
+const createfilterParser = require('../filter-parser')
 
-var parseQueryString = require('../parse-query-string')
-  , createfilterParser = require('../filter-parser')
-
-function get(service, urlRoot, router, logger, middleware, emit, hooks) {
-
+function get (service, urlRoot, router, logger, middleware, emit, hooks) {
   router.get(urlRoot + '/:id', middleware, function (req, res) {
     service.read(req.params.id, function (error, entity) {
       if (error) {
@@ -41,7 +38,7 @@ function get(service, urlRoot, router, logger, middleware, emit, hooks) {
         logger.error(error.stack)
         return res.status(400).json({ error: 'Error finding items from "' + service.name + '" service' })
       }
-      service.count(req.query.filter, function (err, count) {
+      service.count(req.query.filter, function (error, count) {
         if (error) {
           logger.error(error.stack)
           return res.status(400).json({ error: 'Error finding items from "' + service.name + '" service' })
@@ -53,14 +50,15 @@ function get(service, urlRoot, router, logger, middleware, emit, hooks) {
             return res.status(400).json({ error: message })
           }
           res.json(
-            { results: postHookData
-            , page: req.query.pagination.page
-            , pageSize: req.query.pagination.pageSize
-            , totalItems: count
+            { results: postHookData,
+              page: req.query.pagination.page,
+              pageSize: req.query.pagination.pageSize,
+              totalItems: count
             })
         })
       })
     })
   })
-
 }
+
+module.exports = get

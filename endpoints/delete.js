@@ -1,7 +1,4 @@
-module.exports = del
-
-function del(service, urlRoot, router, logger, middleware, emit) {
-
+function del (service, urlRoot, router, logger, middleware, emit) {
   router.delete(urlRoot + '/:id', middleware, function (req, res) {
     logger.debug('DELETE received', req.params.id)
     service['delete'](req.params.id, function (error) {
@@ -17,5 +14,6 @@ function del(service, urlRoot, router, logger, middleware, emit) {
       }
     })
   })
-
 }
+
+module.exports = del

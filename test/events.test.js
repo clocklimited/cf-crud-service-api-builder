@@ -1,26 +1,24 @@
-var assert = require('assert')
-  , crudServiceApiBuilder = require('../api-builder')
-  , express = require('express')
-  , bodyParser = require('body-parser')
-  , logger = require('mc-logger')
-  , request = require('supertest')
-  , service = require('./service')()
-  , app = express()
+const assert = require('assert')
+const crudServiceApiBuilder = require('../api-builder')
+const express = require('express')
+const bodyParser = require('body-parser')
+const logger = require('mc-logger')
+const request = require('supertest')
+const service = require('./service')()
+const app = express()
 
 app.use(bodyParser.json())
 
-describe('events', function () {
+describe('events', () => {
+  let apiBuilder = null
 
-  var apiBuilder = null
-
-  before(function () {
+  before(() => {
     apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
   })
 
-  it('should be emitted after a POST', function (done) {
-
-    var eventFired = false
-    apiBuilder.on('create', function (req, data) {
+  it('should be emitted after a POST', done => {
+    let eventFired = false
+    apiBuilder.on('create', (req, data) => {
       eventFired = true
       assert(req, 'req is not present')
       assert.equal(data._id, '1')
@@ -31,16 +29,16 @@ describe('events', function () {
       .set('Accept', 'application/json')
       .send({})
       .expect(201)
-      .end(function (error) {
+      .end(error => {
         if (error) return done(error)
         assert.equal(eventFired, true, 'create event was not fired')
         done()
       })
   })
 
-  it('should be emitted after a PUT', function (done) {
-    var eventFired = false
-    apiBuilder.on('update', function (req, data) {
+  it('should be emitted after a PUT', done => {
+    let eventFired = false
+    apiBuilder.on('update', (req, data) => {
       eventFired = true
       assert(req, 'req is not present')
       assert.equal(data._id, '1')
@@ -51,16 +49,16 @@ describe('events', function () {
       .set('Accept', 'application/json')
       .send({ _id: '1' })
       .expect(200)
-      .end(function (error) {
+      .end(error => {
         if (error) return done(error)
         assert.equal(eventFired, true, 'update event was not fired')
         done()
       })
   })
 
-  it('should be emitted after a PATCH', function (done) {
-    var eventFired = false
-    apiBuilder.on('partialUpdate', function (req, data) {
+  it('should be emitted after a PATCH', done => {
+    let eventFired = false
+    apiBuilder.on('partialUpdate', (req, data) => {
       eventFired = true
       assert(req, 'req is not present')
       assert.equal(data._id, '1')
@@ -71,16 +69,16 @@ describe('events', function () {
       .set('Accept', 'application/json')
       .send({ _id: '1' })
       .expect(200)
-      .end(function (error) {
+      .end(error => {
         if (error) return done(error)
         assert.equal(eventFired, true, 'partialUpdate event was not fired')
         done()
       })
   })
 
-  it('should be emitted after a DELETE', function (done) {
-    var eventFired = false
-    apiBuilder.on('delete', function (req) {
+  it('should be emitted after a DELETE', done => {
+    let eventFired = false
+    apiBuilder.on('delete', req => {
       eventFired = true
       assert(req, 'req is not present')
     })
@@ -90,11 +88,10 @@ describe('events', function () {
       .set('Accept', 'application/json')
       .send({ _id: '1' })
       .expect(204)
-      .end(function (error) {
+      .end(error => {
         if (error) return done(error)
         assert.equal(eventFired, true, 'delete event was not fired')
         done()
       })
   })
-
 })

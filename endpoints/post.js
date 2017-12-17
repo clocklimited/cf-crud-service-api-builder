@@ -1,7 +1,4 @@
-module.exports = post
-
-function post(service, urlRoot, router, logger, middleware, emit, hooks) {
-
+function post (service, urlRoot, router, logger, middleware, emit, hooks) {
   router.post(urlRoot, middleware, function (req, res) {
     logger.debug('POST received', JSON.stringify(req.body))
     hooks['create:request'].run(req.body, function (error, postHookBody) {
@@ -19,5 +16,6 @@ function post(service, urlRoot, router, logger, middleware, emit, hooks) {
       })
     })
   })
-
 }
+
+module.exports = post

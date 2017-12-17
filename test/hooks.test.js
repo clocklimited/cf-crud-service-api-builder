@@ -1,34 +1,32 @@
-var assert = require('assert')
-  , async = require('async')
-  , crudServiceApiBuilder = require('../api-builder')
-  , express = require('express')
-  , bodyParser = require('body-parser')
-  , logger = require('mc-logger')
-  , request = require('supertest')
-  , createService = require('./service')
+const assert = require('assert')
+const async = require('async')
+const crudServiceApiBuilder = require('../api-builder')
+const express = require('express')
+const bodyParser = require('body-parser')
+const logger = require('mc-logger')
+const request = require('supertest')
+const createService = require('./service')
 
-describe('hooks', function () {
+describe('hooks', () => {
+  let service = null
+  let app = null
 
-  var service = null
-    , app = null
-
-  beforeEach(function (done) {
+  beforeEach(done => {
     service = createService()
     app = express()
     app.use(bodyParser.json())
-    var fixtures =
-          [ { _id: '1', name: 'a' }
-          , { _id: '2', name: 'b' }
+    const fixtures =
+          [ { _id: '1', name: 'a' },
+            { _id: '2', name: 'b' }
           ]
     async.each(fixtures, service.create, done)
   })
 
-  it('should be fired after multi GET', function (done) {
+  it('should be fired after multi GET', done => {
+    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+    let hooked = false
 
-    var apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
-      , hooked = false
-
-    apiBuilder.hook('read:response', function (data, cb) {
+    apiBuilder.hook('read:response', (data, cb) => {
       hooked = true
       assert.equal(Array.isArray(data), true, 'data should be an array')
       assert.equal(data.length, 2)
@@ -40,7 +38,7 @@ describe('hooks', function () {
       .set('Accept', 'application/json')
       .send({})
       .expect(200)
-      .end(function (error, res) {
+      .end((error, res) => {
         if (error) return done(error)
         assert.equal(hooked, true, 'hook was not run')
         assert.equal(res.body.results.length, 2)
@@ -48,11 +46,11 @@ describe('hooks', function () {
       })
   })
 
-  it('should be fired after individual GET', function (done) {
-    var apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
-      , hooked = false
+  it('should be fired after individual GET', done => {
+    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+    let hooked = false
 
-    apiBuilder.hook('read:response', function (data, cb) {
+    apiBuilder.hook('read:response', (data, cb) => {
       hooked = true
       assert.equal(Array.isArray(data), false, 'data should not be an array')
       assert.equal(data._id, '1')
@@ -64,7 +62,7 @@ describe('hooks', function () {
       .set('Accept', 'application/json')
       .send({})
       .expect(200)
-      .end(function (error, res) {
+      .end((error, res) => {
         if (error) return done(error)
         assert.equal(hooked, true, 'hook was not run')
         assert.equal(res.body._id, '1')
@@ -72,19 +70,18 @@ describe('hooks', function () {
       })
   })
 
-  it('should be fired before and after POST', function (done) {
+  it('should be fired before and after POST', done => {
+    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+    let requestHooked = false
+    let responseHooked = false
 
-    var apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
-      , requestHooked = false
-      , responseHooked = false
-
-    apiBuilder.hook('create:request', function (data, cb) {
+    apiBuilder.hook('create:request', (data, cb) => {
       requestHooked = true
       assert.equal(data._id, '3')
       cb(null, data)
     })
 
-    apiBuilder.hook('create:response', function (data, cb) {
+    apiBuilder.hook('create:response', (data, cb) => {
       responseHooked = true
       assert.equal(data._id, '3')
       cb(null, data)
@@ -95,7 +92,7 @@ describe('hooks', function () {
       .set('Accept', 'application/json')
       .send({ _id: '3' })
       .expect(201)
-      .end(function (error, res) {
+      .end((error, res) => {
         if (error) return done(error)
         assert.equal(requestHooked, true, 'request hook was not run')
         assert.equal(responseHooked, true, 'response hook was not run')
@@ -104,20 +101,19 @@ describe('hooks', function () {
       })
   })
 
-  it('should be fired before and after PUT', function (done) {
+  it('should be fired before and after PUT', done => {
+    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+    let requestHooked = false
+    let responseHooked = false
 
-    var apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
-      , requestHooked = false
-      , responseHooked = false
-
-    apiBuilder.hook('update:request', function (data, cb) {
+    apiBuilder.hook('update:request', (data, cb) => {
       requestHooked = true
       assert.equal(data.length, 1)
       assert.equal(data[0]._id, '2')
       cb(null, data)
     })
 
-    apiBuilder.hook('update:response', function (data, cb) {
+    apiBuilder.hook('update:response', (data, cb) => {
       responseHooked = true
       assert.equal(data.length, 1)
       assert.equal(data[0]._id, '2')
@@ -129,7 +125,7 @@ describe('hooks', function () {
       .set('Accept', 'application/json')
       .send({ _id: '2' })
       .expect(200)
-      .end(function (error, res) {
+      .end((error, res) => {
         if (error) return done(error)
         assert.equal(requestHooked, true, 'request hook was not run')
         assert.equal(responseHooked, true, 'response hook was not run')
@@ -138,19 +134,18 @@ describe('hooks', function () {
       })
   })
 
-  it('should be fired before and after PATCH', function (done) {
+  it('should be fired before and after PATCH', done => {
+    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+    let requestHooked = false
+    let responseHooked = false
 
-    var apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
-      , requestHooked = false
-      , responseHooked = false
-
-    apiBuilder.hook('partialUpdate:request', function (data, cb) {
+    apiBuilder.hook('partialUpdate:request', (data, cb) => {
       requestHooked = true
       assert.equal(data._id, '2')
       cb(null, data)
     })
 
-    apiBuilder.hook('partialUpdate:response', function (data, cb) {
+    apiBuilder.hook('partialUpdate:response', (data, cb) => {
       responseHooked = true
       assert.equal(data._id, '2')
       cb(null, data)
@@ -161,7 +156,7 @@ describe('hooks', function () {
       .set('Accept', 'application/json')
       .send({ _id: '2' })
       .expect(200)
-      .end(function (error, res) {
+      .end((error, res) => {
         if (error) return done(error)
         assert.equal(requestHooked, true, 'request hook was not run')
         assert.equal(responseHooked, true, 'response hook was not run')
@@ -169,5 +164,4 @@ describe('hooks', function () {
         done()
       })
   })
-
 })
