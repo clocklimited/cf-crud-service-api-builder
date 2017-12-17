@@ -4,7 +4,7 @@ const schemata = require('schemata')
 const required = require('validity-required')
 const logger = require('mc-logger')
 
-const createSchema = schemata({
+const createSchema = () => schemata({
   name: 'Thing',
   properties: {
     _id: {

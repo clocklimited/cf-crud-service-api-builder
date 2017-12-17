@@ -17,15 +17,19 @@ function put (service, urlRoot, router, logger, middleware, emit, hooks) {
     var updateError = false
 
     function update (body, cb) {
-      service.update(body, {}, function (error, updatedObject) {
+      service.update(body, {}, (error, updatedObject) => {
         if (error) {
-          updateError = true
+          if (error.errors) {
+            updateError = true
 
-          // Only appending _id to errors object if id isnt in URL
-          if (!req.params.id) {
-            error = Object.assign({ _id: body._id }, error)
+            // Only appending _id to errors object if id isnt in URL
+            if (!req.params.id) {
+              error = Object.assign({ _id: body._id }, error)
+            }
+            cb(null, error)
+          } else {
+            cb(error)
           }
-          cb(null, error)
         } else {
           emit('update', req, updatedObject)
           cb(null, updatedObject)
@@ -36,6 +40,7 @@ function put (service, urlRoot, router, logger, middleware, emit, hooks) {
     hooks['update:request'].run(req.body, function (error, postHookBody) {
       if (error) return res.status(400).json(error)
       async.map(postHookBody, update, function (error, updatedObjects) {
+        if (error) return res.status(400).json(error)
         var status = updateError ? 400 : 200
         hooks['update:response'].run(updatedObjects, function (error, postHookUpdatedObject) {
           if (error) return res.status(400).json(error)

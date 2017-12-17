@@ -3,9 +3,9 @@ function createFilterParser (schema) {
   function parseObject (object, parentKey) {
     var newObj = {}
     Object.keys(object).forEach(function (key) {
-      var value = object[key],
-        ignoredTypes = [ Object, Array ],
-        type = getType(key, parentKey)
+      let value = object[key]
+      const ignoredTypes = [ Object, Array ]
+      const type = getType(key, parentKey)
 
       // Skip ignored types and Schemata Arrays
       if (ignoredTypes.indexOf(type) === -1 && !type.arraySchema) {

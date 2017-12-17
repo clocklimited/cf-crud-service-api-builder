@@ -15,14 +15,14 @@ describe('hooks', () => {
     service = createService()
     app = express()
     app.use(bodyParser.json())
-    const fixtures =
-          [ { _id: '1', name: 'a' },
-            { _id: '2', name: 'b' }
-          ]
+    const fixtures = [
+      { _id: '1', name: 'a' },
+      { _id: '2', name: 'b' }
+    ]
     async.each(fixtures, service.create, done)
   })
 
-  it('should be fired after multi GET', done => {
+  test('should be fired after multi GET', done => {
     const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
     let hooked = false
 
@@ -46,7 +46,7 @@ describe('hooks', () => {
       })
   })
 
-  it('should be fired after individual GET', done => {
+  test('should be fired after individual GET', done => {
     const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
     let hooked = false
 
@@ -70,7 +70,7 @@ describe('hooks', () => {
       })
   })
 
-  it('should be fired before and after POST', done => {
+  test('should be fired before and after POST', done => {
     const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
     let requestHooked = false
     let responseHooked = false
@@ -90,7 +90,7 @@ describe('hooks', () => {
     request(app)
       .post('/things')
       .set('Accept', 'application/json')
-      .send({ _id: '3' })
+      .send({ _id: '3', name: 'd' })
       .expect(201)
       .end((error, res) => {
         if (error) return done(error)
@@ -101,7 +101,7 @@ describe('hooks', () => {
       })
   })
 
-  it('should be fired before and after PUT', done => {
+  test('should be fired before and after PUT', done => {
     const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
     let requestHooked = false
     let responseHooked = false
@@ -123,7 +123,7 @@ describe('hooks', () => {
     request(app)
       .put('/things/2')
       .set('Accept', 'application/json')
-      .send({ _id: '2' })
+      .send({ _id: '2', name: 'e' })
       .expect(200)
       .end((error, res) => {
         if (error) return done(error)
@@ -134,7 +134,7 @@ describe('hooks', () => {
       })
   })
 
-  it('should be fired before and after PATCH', done => {
+  test('should be fired before and after PATCH', done => {
     const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
     let requestHooked = false
     let responseHooked = false
@@ -154,7 +154,7 @@ describe('hooks', () => {
     request(app)
       .patch('/things/2')
       .set('Accept', 'application/json')
-      .send({ _id: '2' })
+      .send({ _id: '2', name: 'f' })
       .expect(200)
       .end((error, res) => {
         if (error) return done(error)

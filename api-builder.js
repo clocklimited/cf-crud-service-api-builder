@@ -3,18 +3,12 @@ const routes = {
   post: require('./endpoints/post'),
   put: require('./endpoints/put'),
   patch: require('./endpoints/patch'),
-  'delete': require('./endpoints/delete')
+  delete: require('./endpoints/delete')
 }
 const EventEmitter = require('events').EventEmitter
 const createPipe = require('piton-pipe').createPipe
 
 function buildApi (service, urlRoot, router, logger, middleware, verbs) {
-  function Api () {
-    EventEmitter.call(this)
-  }
-
-  Api.prototype = Object.create(EventEmitter.prototype)
-
   const hooks = {
     'create:request': createPipe(),
     'create:response': createPipe(),
@@ -25,9 +19,11 @@ function buildApi (service, urlRoot, router, logger, middleware, verbs) {
     'partialUpdate:response': createPipe()
   }
 
-  Api.prototype.hook = function (name, fn) {
-    if (!hooks[name]) throw new Error('No hook exists for: ' + name)
-    hooks[name].add(fn)
+  class Api extends EventEmitter {
+    hook (name, fn) {
+      if (!hooks[name]) throw new Error('No hook exists for: ' + name)
+      hooks[name].add(fn)
+    }
   }
 
   const api = new Api()
@@ -38,7 +34,7 @@ function buildApi (service, urlRoot, router, logger, middleware, verbs) {
   if (!Array.isArray(verbs)) verbs = [ 'get', 'post', 'put', 'patch', 'delete' ]
 
   // Create endpoints
-  verbs.forEach(function (verb) {
+  verbs.forEach(verb => {
     routes[verb](service, urlRoot, router, logger, middleware, api.emit.bind(api), hooks)
   })
 

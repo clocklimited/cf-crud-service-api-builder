@@ -12,19 +12,18 @@
   "scripts": {
     "lint": "eslint --fix -f unix .",
     "pretest": "npm run lint",
-    "posttest": "istanbul check-coverage && rm -rf coverage",
-    "prepublish": "npm test && npm prune"
+    "test": "jest",
+    "prepublish": "npm test"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "dependencies": {
     "async": "^2.6.0",
-    "lodash.assign": "^3.2.0",
     "piton-pipe": "0.0.4"
   },
   "devDependencies": {
-    "body-parser": "^1.14.2",
+    "body-parser": "^1.18.2",
     "crud-service": "^1.0.0",
     "eslint": "^4.13.1",
     "eslint-config-standard": "^11.0.0-beta.0",
@@ -32,12 +31,12 @@
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "express": "^4.13.3",
+    "express": "^4.16.2",
+    "jest": "^21.2.1",
     "mc-logger": "0.0.0",
-    "mocha": "^2.3.4",
     "save": "^2.3.2",
     "schemata": "^5.0.0",
-    "supertest": "^1.1.0",
+    "supertest": "^3.0.0",
     "validity-required": "^1.0.0"
   }
 }

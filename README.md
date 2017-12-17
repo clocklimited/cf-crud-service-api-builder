@@ -9,11 +9,11 @@ Build an HTTP API for a [crud-service](https://github.com/serby/crud-service).
 ## Usage
 
 ```js
-var crudServiceApiBuilder = require('cf-crud-service-api-builder')
-  , router = require('express')()
-  , logger = require('bunyan').createLogger()
-  , service = require('./service')
-  , middleware = require('./auth-check-middleware')
+const crudServiceApiBuilder = require('cf-crud-service-api-builder')
+const router = require('express')()
+const logger = require('bunyan').createLogger()
+const service = require('./service')
+const middleware = require('./auth-check-middleware')
 
 crudServiceApiBuilder(service, '/widgets', router, logger, middleware)
 ```
@@ -24,7 +24,7 @@ When using the api builder, you can hook into certain actions to manipulate the 
 
 ```js
 
-var api = crudServiceApiBuilder(service, '/article', router, logger, middleware)
+const api = crudServiceApiBuilder(service, '/article', router, logger, middleware)
 
 api.hook('create:request', function (data, cb) {
   // do whatever you like with the data
@@ -49,7 +49,7 @@ When using the api builder, you can listen for certain events so that you can ad
 
 ```js
 
-var api = crudServiceApiBuilder(service, '/article', router, logger, middleware)
+const api = crudServiceApiBuilder(service, '/article', router, logger, middleware)
 
 api.on('create', function (req, newArticle) {
   // do whatever you like with the req and article object
