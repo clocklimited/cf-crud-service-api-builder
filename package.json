@@ -2,7 +2,7 @@
   "author": "Ben Gourley",
   "name": "cf-crud-service-api-builder",
   "description": "Build an HTTP API for a crud-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "tags": [],
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "async": "^2.6.0",
-    "piton-pipe": "0.0.4"
+    "piton-pipe": "0.0.4",
+    "schemata": "^6.0.0"
   },
   "license": "ISC",
   "devDependencies": {
@@ -36,7 +37,6 @@
     "jest": "^21.2.1",
     "mc-logger": "0.0.0",
     "save": "^2.3.2",
-    "schemata": "^5.0.0",
     "supertest": "^3.0.0",
     "validity-required": "^1.0.0"
   }
