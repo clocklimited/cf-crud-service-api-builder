@@ -1,5 +1,7 @@
 # cf-crud-service-api-builder
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/clocklimited/cf-crud-service-api-builder.svg)](https://greenkeeper.io/)
+
 Build an HTTP API for a [crud-service](https://github.com/serby/crud-service).
 
 ## Installation
