@@ -54,6 +54,12 @@ describe('filter parser', () => {
     assert(params.array instanceof Array)
   })
 
+  test('should correctly parse array index queries', () => {
+    let params = { 'array.5': 2 }
+    params = filterParser(params)
+    assert.equal('number', typeof params['array.5'])
+  })
+
   test('should correctly parse schemata arrays', () => {
     let params = { schemataArray: [ { a: '1' }, { b: '2' } ] }
     params = filterParser(params)
