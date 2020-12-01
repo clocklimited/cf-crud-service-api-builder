@@ -40,10 +40,10 @@ function createFilterParser (schema) {
   }
 
   function getType (key, parentKey) {
-    if (parentKey) {
-      return properties[parentKey].type
-    } else if (isMongoOperator(key) || isMongoChildQuery(key)) {
+    if (isMongoOperator(key) || isMongoChildQuery(key)) {
       return {}
+    } else if (parentKey) {
+      return properties[parentKey].type
     } else {
       return properties[key].type
     }
