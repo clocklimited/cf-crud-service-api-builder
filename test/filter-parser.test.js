@@ -113,4 +113,10 @@ describe('filter parser', () => {
     assert.equal(params.$or[0].string.$in[0], '1')
     assert.equal(params.$or[1].string.$size, '0')
   })
+
+  test('should correctly parse dates in mongo operators', () => {
+    let params = { date: { $eq: '2013-04-17T14:36:55.648Z' } }
+    params = filterParser(params)
+    assert(params.date.$eq instanceof Date)
+  })
 })
