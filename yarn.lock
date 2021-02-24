@@ -187,6 +187,13 @@ async@^2.1.4, async@^2.4.1, async@^2.6.0:
   dependencies:
     lodash "^4.14.0"
 
+async@^2.6.2:
+  version "2.6.3"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
+  integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
+  dependencies:
+    lodash "^4.17.14"
+
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
@@ -612,12 +619,14 @@ cross-spawn@^5.0.1, cross-spawn@^5.1.0:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-crud-service@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/crud-service/-/crud-service-1.0.0.tgz#9e9eca9c155368913c7286e9b23afac6e1d4c339"
+crud-service@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/crud-service/-/crud-service-1.1.2.tgz#2cc9b4e64fd038ee09200fba4c3f9cf783646bb0"
+  integrity sha512-nU5i1HVRGIy4vRqz7aPSvmNszmEut746IHg+YR8i81ywk3LE0h0V2Jee3uJT8Vvrdt0Q53kMNbzqu6uQJvLG+A==
   dependencies:
-    async "^2.6.0"
+    async "^2.6.2"
     lodash.clone "^4.5.0"
+    schemata "^6.0.0"
 
 cryptiles@2.x.x:
   version "2.0.5"
@@ -2051,6 +2060,11 @@ lodash@^4.14.0, lodash@^4.17.4, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+lodash@^4.17.14:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
 longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
@@ -2777,9 +2791,10 @@ sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
 
-schemata@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/schemata/-/schemata-5.0.0.tgz#2595c30dffdb8c6db29ae0f6c6cfb2f890f4e3b5"
+schemata@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/schemata/-/schemata-6.0.0.tgz#24bf84a12d2d466e3131587c53221db83dd85f49"
+  integrity sha1-JL+EoS0tRm4xMVh8UyIduD3YX0k=
   dependencies:
     async "^2.6.0"
     is-primitive "^3.0.0"
