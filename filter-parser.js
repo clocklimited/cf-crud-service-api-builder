@@ -42,7 +42,7 @@ function createFilterParser (schema) {
   function getType (key, parentKey) {
     if (isMongoOperator(key) || isMongoChildQuery(key)) {
       if (properties[parentKey]) {
-        return properties[parentKey]
+        return properties[parentKey].type
       }
       return {}
     } else if (parentKey) {
