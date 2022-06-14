@@ -1,9 +1,10 @@
 {
-  "author": "Ben Gourley",
-  "name": "cf-crud-service-api-builder",
+  "author": "Clock Limited",
+  "name": "@clocklimited/cf-crud-service-api-builder",
   "description": "Build an HTTP API for a crud-service",
   "version": "1.0.1",
   "tags": [],
+  "homepage": "https://github.com/clocklimited/cf-crud-service-api-builder",
   "repository": {
     "type": "git",
     "url": "git@github.com:clocklimited/cf-crud-service-api-builder"

@@ -1,10 +1,10 @@
-# cf-crud-service-api-builder
+# @clocklimited/cf-crud-service-api-builder
 
-Build an HTTP API for a [crud-service](https://github.com/serby/crud-service).
+Build an HTTP API for a [@clocklimited/crud-service](https://github.com/clocklimited/crud-service).
 
 ## Installation
 
-    npm install --save cf-crud-service-api-builder
+    npm install --save @clocklimited/cf-crud-service-api-builder
 
 ## Usage
 
