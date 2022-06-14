@@ -5,7 +5,6 @@ const request = require('supertest')
 const logger = require('mc-logger')
 const assert = require('assert')
 const async = require('async')
-const extend = require('lodash.assign')
 const qs = require('querystring')
 const createPipe = require('piton-pipe').createPipe
 
@@ -57,7 +56,7 @@ describe('GET endpoint', () => {
 
         const app = express()
         createGetEndpoint(
-          extend({}, service, { read: mockRead }),
+          Object.assign({}, service, { read: mockRead }),
           '/things',
           app,
           logger,
@@ -116,7 +115,7 @@ describe('GET endpoint', () => {
 
       const app = express()
       createGetEndpoint(
-        extend({}, service, { find: mockFind }),
+        Object.assign({}, service, { find: mockFind }),
         '/things',
         app,
         logger,
