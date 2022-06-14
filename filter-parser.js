@@ -1,3 +1,5 @@
+const schemata = require('schemata')
+
 function createFilterParser (schema) {
   const properties = schema.getProperties()
   function parseObject (object, parentKey) {
@@ -15,11 +17,11 @@ function createFilterParser (schema) {
             if (typeof item === 'object' && item !== null) return parseObject(item)
 
             // Do a simple cast if they arent objects
-            return schema.castProperty(type, item)
+            return schemata.castProperty(type, item)
           })
         } else if (Array.isArray(value)) {
           value = value.map(function (item) {
-            return schema.castProperty(type, item)
+            return schemata.castProperty(type, item)
           })
         } else if (typeof value === 'object' && value !== null) {
           value = parseObject(value, key)
@@ -28,7 +30,7 @@ function createFilterParser (schema) {
           if (key === '$size') {
             value = Number(value)
           } else {
-            value = schema.castProperty(type, value)
+            value = schemata.castProperty(type, value)
           }
         }
       }
@@ -38,10 +40,13 @@ function createFilterParser (schema) {
   }
 
   function getType (key, parentKey) {
-    if (parentKey) {
-      return properties[parentKey].type
-    } else if (isMongoOperator(key)) {
+    if (isMongoOperator(key) || isMongoChildQuery(key)) {
+      if (properties[parentKey]) {
+        return properties[parentKey].type
+      }
       return {}
+    } else if (parentKey) {
+      return properties[parentKey].type
     } else {
       return properties[key].type
     }
@@ -50,6 +55,11 @@ function createFilterParser (schema) {
   // Key starts with $ e.g. $or, $and
   function isMongoOperator (key) {
     return key.match(/^\$/)
+  }
+
+  // Key contains a .
+  function isMongoChildQuery (key) {
+    return key.includes('.')
   }
 
   return parseObject

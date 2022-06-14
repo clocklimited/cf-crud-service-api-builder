@@ -54,6 +54,18 @@ describe('filter parser', () => {
     assert(params.array instanceof Array)
   })
 
+  test('should correctly parse array index queries', () => {
+    let params = { 'array.5': 2 }
+    params = filterParser(params)
+    assert.equal('number', typeof params['array.5'])
+  })
+
+  test('should correctly parse array index queries with mongo operators', () => {
+    let params = { 'array.5': { $exists: true } }
+    params = filterParser(params)
+    assert.equal('object', typeof params['array.5'])
+  })
+
   test('should correctly parse schemata arrays', () => {
     let params = { schemataArray: [ { a: '1' }, { b: '2' } ] }
     params = filterParser(params)
@@ -100,5 +112,11 @@ describe('filter parser', () => {
     params = filterParser(params)
     assert.equal(params.$or[0].string.$in[0], '1')
     assert.equal(params.$or[1].string.$size, '0')
+  })
+
+  test('should correctly parse dates in mongo operators', () => {
+    let params = { date: { $eq: '2013-04-17T14:36:55.648Z' } }
+    params = filterParser(params)
+    assert(params.date.$eq instanceof Date)
   })
 })
