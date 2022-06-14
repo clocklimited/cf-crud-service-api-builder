@@ -11,7 +11,7 @@ describe('hooks', () => {
   let service = null
   let app = null
 
-  beforeEach(done => {
+  beforeEach((done) => {
     service = createService()
     app = express()
     app.use(bodyParser.json())
@@ -22,8 +22,15 @@ describe('hooks', () => {
     async.each(fixtures, service.create, done)
   })
 
-  test('should be fired after multi GET', done => {
-    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+  test('should be fired after multi GET', (done) => {
+    const apiBuilder = crudServiceApiBuilder(
+      service,
+      '/things',
+      app,
+      logger,
+      [],
+      null
+    )
     let hooked = false
 
     apiBuilder.hook('read:response', (data, cb) => {
@@ -46,8 +53,15 @@ describe('hooks', () => {
       })
   })
 
-  test('should be fired after individual GET', done => {
-    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+  test('should be fired after individual GET', (done) => {
+    const apiBuilder = crudServiceApiBuilder(
+      service,
+      '/things',
+      app,
+      logger,
+      [],
+      null
+    )
     let hooked = false
 
     apiBuilder.hook('read:response', (data, cb) => {
@@ -70,8 +84,15 @@ describe('hooks', () => {
       })
   })
 
-  test('should be fired before and after POST', done => {
-    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+  test('should be fired before and after POST', (done) => {
+    const apiBuilder = crudServiceApiBuilder(
+      service,
+      '/things',
+      app,
+      logger,
+      [],
+      null
+    )
     let requestHooked = false
     let responseHooked = false
 
@@ -101,8 +122,15 @@ describe('hooks', () => {
       })
   })
 
-  test('should be fired before and after PUT', done => {
-    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+  test('should be fired before and after PUT', (done) => {
+    const apiBuilder = crudServiceApiBuilder(
+      service,
+      '/things',
+      app,
+      logger,
+      [],
+      null
+    )
     let requestHooked = false
     let responseHooked = false
 
@@ -134,8 +162,15 @@ describe('hooks', () => {
       })
   })
 
-  test('should be fired before and after PATCH', done => {
-    const apiBuilder = crudServiceApiBuilder(service, '/things', app, logger, [], null)
+  test('should be fired before and after PATCH', (done) => {
+    const apiBuilder = crudServiceApiBuilder(
+      service,
+      '/things',
+      app,
+      logger,
+      [],
+      null
+    )
     let requestHooked = false
     let responseHooked = false
 

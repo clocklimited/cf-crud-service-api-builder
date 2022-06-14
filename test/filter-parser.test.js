@@ -1,19 +1,24 @@
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 const createFilterParser = require('../filter-parser')
 const assert = require('assert')
 
-const createSchema = () => schemata({
-  name: 'Test',
-  properties: {
-    string: { type: String },
-    date: { type: Date },
-    bool: { type: Boolean },
-    number: { type: Number },
-    object: { type: Object },
-    array: { type: Array },
-    schemataArray: { type: schemata.Array(schemata({ name: 'Sub', properties: { key: 'value' } })) }
-  }
-})
+const createSchema = () =>
+  schemata({
+    name: 'Test',
+    properties: {
+      string: { type: String },
+      date: { type: Date },
+      bool: { type: Boolean },
+      number: { type: Number },
+      object: { type: Object },
+      array: { type: Array },
+      schemataArray: {
+        type: schemata.Array(
+          schemata({ name: 'Sub', properties: { key: 'value' } })
+        )
+      }
+    }
+  })
 
 describe('filter parser', () => {
   const filterParser = createFilterParser(createSchema())
@@ -49,7 +54,7 @@ describe('filter parser', () => {
   })
 
   test('should correctly parse arrays', () => {
-    let params = { array: [ 1, 2, 3 ] }
+    let params = { array: [1, 2, 3] }
     params = filterParser(params)
     assert(params.array instanceof Array)
   })
@@ -67,7 +72,7 @@ describe('filter parser', () => {
   })
 
   test('should correctly parse schemata arrays', () => {
-    let params = { schemataArray: [ { a: '1' }, { b: '2' } ] }
+    let params = { schemataArray: [{ a: '1' }, { b: '2' }] }
     params = filterParser(params)
     assert(params.schemataArray instanceof Array)
   })
@@ -85,7 +90,7 @@ describe('filter parser', () => {
   })
 
   test('should correctly parse arrays that are of type String', () => {
-    let params = { string: [ 1, 2, 3 ] }
+    let params = { string: [1, 2, 3] }
     params = filterParser(params)
     assert.equal('string', typeof params.string[0])
   })
@@ -102,13 +107,13 @@ describe('filter parser', () => {
   })
 
   test('should work for keys that start with $', () => {
-    let params = { $or: [ { string: 1 } ] }
+    let params = { $or: [{ string: 1 }] }
     params = filterParser(params)
     assert.equal(typeof params.$or[0].string, 'string')
   })
 
   test('should recursively for keys that start with $', () => {
-    let params = { $or: [ { string: { $in: [ 1 ] } }, { string: { $size: 0 } } ] }
+    let params = { $or: [{ string: { $in: [1] } }, { string: { $size: 0 } }] }
     params = filterParser(params)
     assert.equal(params.$or[0].string.$in[0], '1')
     assert.equal(params.$or[1].string.$size, '0')

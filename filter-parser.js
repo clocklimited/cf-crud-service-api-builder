@@ -1,12 +1,12 @@
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 
-function createFilterParser (schema) {
+function createFilterParser(schema) {
   const properties = schema.getProperties()
-  function parseObject (object, parentKey) {
+  function parseObject(object, parentKey) {
     var newObj = {}
     Object.keys(object).forEach(function (key) {
       let value = object[key]
-      const ignoredTypes = [ Object, Array ]
+      const ignoredTypes = [Object, Array]
       const type = getType(key, parentKey)
 
       // Skip ignored types and Schemata Arrays
@@ -14,7 +14,8 @@ function createFilterParser (schema) {
         if (isMongoOperator(key) && Array.isArray(value)) {
           value = value.map(function (item) {
             // Recursively cast objects like `{ $in: [1, 2, 3 }`
-            if (typeof item === 'object' && item !== null) return parseObject(item)
+            if (typeof item === 'object' && item !== null)
+              return parseObject(item)
 
             // Do a simple cast if they arent objects
             return schemata.castProperty(type, item)
@@ -39,7 +40,7 @@ function createFilterParser (schema) {
     return newObj
   }
 
-  function getType (key, parentKey) {
+  function getType(key, parentKey) {
     if (isMongoOperator(key) || isMongoChildQuery(key)) {
       if (properties[parentKey]) {
         return properties[parentKey].type
@@ -53,12 +54,12 @@ function createFilterParser (schema) {
   }
 
   // Key starts with $ e.g. $or, $and
-  function isMongoOperator (key) {
+  function isMongoOperator(key) {
     return key.match(/^\$/)
   }
 
   // Key contains a .
-  function isMongoChildQuery (key) {
+  function isMongoChildQuery(key) {
     return key.includes('.')
   }
 

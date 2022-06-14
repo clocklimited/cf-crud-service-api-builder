@@ -7,7 +7,7 @@ const logger = require('mc-logger')
 const request = require('supertest')
 const createService = require('./service')
 
-const setup = cb => {
+const setup = (cb) => {
   const app = express()
   app.use(bodyParser.json())
   const service = createService()
@@ -16,14 +16,14 @@ const setup = cb => {
     { _id: '2', name: 'b' }
   ]
   const api = crudServiceApiBuilder(service, '/things', app, logger, [], null)
-  async.each(fixtures, service.create, error => {
+  async.each(fixtures, service.create, (error) => {
     expect(error).toBeFalsy()
     cb(null, { app, api })
   })
 }
 
 describe('events', () => {
-  test('should be emitted after a POST', done => {
+  test('should be emitted after a POST', (done) => {
     setup((error, res) => {
       expect(error).toBeFalsy()
       const { app, api } = res
@@ -39,7 +39,7 @@ describe('events', () => {
         .set('Accept', 'application/json')
         .send({ _id: '3', name: 'a' })
         .expect(201)
-        .end(error => {
+        .end((error) => {
           if (error) return done(error)
           assert.equal(eventFired, true, 'create event was not fired')
           done()
@@ -47,7 +47,7 @@ describe('events', () => {
     })
   })
 
-  test('should be emitted after a PUT', done => {
+  test('should be emitted after a PUT', (done) => {
     setup((error, res) => {
       expect(error).toBeFalsy()
       const { app, api } = res
@@ -63,7 +63,7 @@ describe('events', () => {
         .set('Accept', 'application/json')
         .send({ _id: '1', name: 'd' })
         .expect(200)
-        .end((error, body) => {
+        .end((error) => {
           if (error) return done(error)
           assert.equal(eventFired, true, 'update event was not fired')
           done()
@@ -71,7 +71,7 @@ describe('events', () => {
     })
   })
 
-  test('should be emitted after a PATCH', done => {
+  test('should be emitted after a PATCH', (done) => {
     setup((error, res) => {
       expect(error).toBeFalsy()
       const { app, api } = res
@@ -87,7 +87,7 @@ describe('events', () => {
         .set('Accept', 'application/json')
         .send({ _id: '1', name: 'd' })
         .expect(200)
-        .end(error => {
+        .end((error) => {
           if (error) return done(error)
           assert.equal(eventFired, true, 'partialUpdate event was not fired')
           done()
@@ -95,13 +95,13 @@ describe('events', () => {
     })
   })
 
-  test('should be emitted after a DELETE', done => {
+  test('should be emitted after a DELETE', (done) => {
     setup((error, res) => {
       expect(error).toBeFalsy()
       const { app, api } = res
 
       let eventFired = false
-      api.on('delete', req => {
+      api.on('delete', (req) => {
         eventFired = true
         assert(req, 'req is not present')
       })
@@ -111,7 +111,7 @@ describe('events', () => {
         .set('Accept', 'application/json')
         .send({ _id: '1', name: 'd' })
         .expect(204)
-        .end(error => {
+        .end((error) => {
           if (error) return done(error)
           assert.equal(eventFired, true, 'delete event was not fired')
           done()
