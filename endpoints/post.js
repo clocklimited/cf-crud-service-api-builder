@@ -1,4 +1,4 @@
-function post (service, urlRoot, router, logger, middleware, emit, hooks) {
+function post(service, urlRoot, router, logger, middleware, emit, hooks) {
   router.post(urlRoot, middleware, function (req, res) {
     logger.debug('POST received', JSON.stringify(req.body))
     hooks['create:request'].run(req.body, function (error, postHookBody) {
@@ -8,10 +8,13 @@ function post (service, urlRoot, router, logger, middleware, emit, hooks) {
           res.status(400).json(error)
         } else {
           emit('create', req, newObject)
-          hooks['create:response'].run(newObject, function (error, postHookNewObject) {
-            if (error) return res.status(400).json(error)
-            res.status(201).json(postHookNewObject)
-          })
+          hooks['create:response'].run(
+            newObject,
+            function (error, postHookNewObject) {
+              if (error) return res.status(400).json(error)
+              res.status(201).json(postHookNewObject)
+            }
+          )
         }
       })
     })

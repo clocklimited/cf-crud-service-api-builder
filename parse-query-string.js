@@ -1,4 +1,4 @@
-function parseQueryString (req, res, next) {
+function parseQueryString(req, res, next) {
   try {
     req.query.filter = parseQueryStringObject(req.query.filter, {})
     req.query.sort = parseSortOptions(req.query.sort)
@@ -13,21 +13,22 @@ function parseQueryString (req, res, next) {
   }
 }
 
-function parseQueryStringObject (parameter, defaultValue) {
+function parseQueryStringObject(parameter, defaultValue) {
   if (!parameter) return defaultValue
   var result = JSON.parse(parameter)
-  if (typeof result !== 'object') throw new Error('Invalid parameter provided ' + result)
+  if (typeof result !== 'object')
+    throw new Error('Invalid parameter provided ' + result)
   return Object.assign({}, defaultValue, result)
 }
 
-function parseSortOptions (parameter) {
+function parseSortOptions(parameter) {
   if (!parameter) return undefined
   const rawOptions = JSON.parse(parameter)
   let sort = 'asc'
   if (!Array.isArray(rawOptions)) return undefined
   if (!rawOptions.length) return undefined
   if (typeof rawOptions[1] !== 'undefined') sort = rawOptions[1]
-  return [ [ rawOptions[0], sort ] ]
+  return [[rawOptions[0], sort]]
 }
 
 module.exports = parseQueryString
