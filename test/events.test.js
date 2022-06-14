@@ -63,7 +63,7 @@ describe('events', () => {
         .set('Accept', 'application/json')
         .send({ _id: '1', name: 'd' })
         .expect(200)
-        .end((error, body) => {
+        .end((error) => {
           if (error) return done(error)
           assert.equal(eventFired, true, 'update event was not fired')
           done()
