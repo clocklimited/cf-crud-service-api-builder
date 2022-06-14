@@ -9,6 +9,12 @@
     "type": "git",
     "url": "git@github.com:clocklimited/cf-crud-service-api-builder"
   },
+  "files": [
+    "api-builder.js",
+    "filter-parser.js",
+    "parse-query-string.js",
+    "endpoints/"
+  ],
   "main": "api-builder",
   "scripts": {
     "lint": "eslint --fix -f unix .",
