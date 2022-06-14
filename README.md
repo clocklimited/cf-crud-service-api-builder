@@ -1,5 +1,7 @@
 # @clocklimited/cf-crud-service-api-builder
 
+[![CircleCI](https://circleci.com/gh/clocklimited/cf-crud-service-api-builder/tree/master.svg?style=shield)](https://circleci.com/gh/clocklimited/cf-crud-service-api-builder/tree/master)
+
 Build an HTTP API for a [@clocklimited/crud-service](https://github.com/clocklimited/crud-service).
 
 ## Installation
