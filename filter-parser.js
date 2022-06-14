@@ -1,4 +1,4 @@
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 
 function createFilterParser(schema) {
   const properties = schema.getProperties()

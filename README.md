@@ -4,7 +4,10 @@ Build an HTTP API for a [@clocklimited/crud-service](https://github.com/clocklim
 
 ## Installation
 
-    npm install --save @clocklimited/cf-crud-service-api-builder
+```
+npm install --save @clocklimited/cf-crud-service-api-builder
+npm install --save @clocklimited/schemata
+```
 
 ## Usage
 

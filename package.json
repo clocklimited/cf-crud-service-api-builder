@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "async": "^2.6.0",
-    "piton-pipe": "0.0.4",
-    "schemata": "^6.0.0"
+    "piton-pipe": "0.0.4"
   },
   "license": "ISC",
   "devDependencies": {
+    "@clocklimited/schemata": "^8.0.0",
     "body-parser": "^1.18.2",
     "crud-service": "^1.1.2",
     "eslint": "^8.17.0",
@@ -46,5 +46,8 @@
     "save": "^2.3.2",
     "supertest": "^3.0.0",
     "validity-required": "^1.0.0"
+  },
+  "peerDependencies": {
+    "@clocklimited/schemata": ">8"
   }
 }

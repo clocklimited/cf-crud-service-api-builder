@@ -1,4 +1,4 @@
-const schemata = require('schemata')
+const schemata = require('@clocklimited/schemata')
 const createFilterParser = require('../filter-parser')
 const assert = require('assert')
 
