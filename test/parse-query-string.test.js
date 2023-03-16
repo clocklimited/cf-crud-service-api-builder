@@ -19,6 +19,23 @@ describe('query string parser', () => {
     }
   })
 
+  test('should call respond with an error if invalid json is passed to req.query.projection', (done) => {
+    parseQueryString(
+      { query: { projection: 'not json' } },
+      { status: mockStatus, json: mockEnd }
+    )
+
+    function mockStatus(code) {
+      assert.equal(400, code)
+      return this
+    }
+
+    function mockEnd(error) {
+      assert.equal('Invalid JSON', error.message)
+      done()
+    }
+  })
+
   test('should call respond with an error if invalid json is passed to req.query.pagination', (done) => {
     parseQueryString(
       { query: { pagination: 'not json' } },
@@ -66,6 +83,15 @@ describe('query string parser', () => {
     const req = { query: { filter: JSON.stringify(filter) } }
     parseQueryString(req, {}, () => {
       assert.deepEqual(filter, req.query.filter)
+      done()
+    })
+  })
+
+  test('should parse req.query.projection options', (done) => {
+    const projection = { a: 1, b: 0, c: 1 }
+    const req = { query: { projection: JSON.stringify(projection) } }
+    parseQueryString(req, {}, () => {
+      assert.deepEqual(projection, req.query.projection)
       done()
     })
   })
