@@ -5,6 +5,7 @@ var extend = require('lodash.assign')
 function parseQueryString(req, res, next) {
   try {
     req.query.filter = parseQueryStringObject(req.query.filter, {})
+    req.query.projection = parseQueryStringObject(req.query.projection, {})
     req.query.sort = parseSortOptions(req.query.sort)
     req.query.pagination = parseQueryStringObject(req.query.pagination
       , { page: 1
