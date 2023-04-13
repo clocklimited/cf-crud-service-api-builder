@@ -22,7 +22,7 @@ function get (service, urlRoot, router, logger, middleware, emit, hooks) {
   router.get(urlRoot, middleware, parseQueryString, function (req, res) {
     logger.debug('GET received', JSON.stringify(req.query))
 
-    var options = { sort: req.query.sort }
+    var options = { sort: req.query.sort, projection: req.query.projection }
     if (!isNaN(req.query.pagination.pageSize)) {
       options.limit = req.query.pagination.pageSize
       if (!isNaN(req.query.pagination.page)) {
