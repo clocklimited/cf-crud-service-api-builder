@@ -31,9 +31,9 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@clocklimited/crud-service": "^2.0.0",
     "@clocklimited/schemata": "^8.0.0",
     "body-parser": "^1.18.2",
-    "crud-service": "^1.1.2",
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-node": "^11.1.0",

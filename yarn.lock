@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"@clocklimited/crud-service@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@clocklimited/crud-service/-/crud-service-2.0.0.tgz#17c5c57c72bdd25d1acf40f2673d1b101bb930fe"
+  integrity sha512-ujhZvHFLsGOn3lnL8z6On+WowNdYqr/DUz0HTNITM8E/kp3DsLbgi7nIFEc7/lX6WudgFOZSNSlevCvZJbbX/w==
+  dependencies:
+    async "^3.2.4"
+    lodash.clone "^4.5.0"
+
 "@clocklimited/schemata@^8.0.0":
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@clocklimited/schemata/-/schemata-8.0.0.tgz#42588dc92667c4c84fcde28a7aa0c302c0df62f2"
@@ -239,18 +247,11 @@ async@^1.4.0:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/async/-/async-1.5.2.tgz#ec6a61ae56480c0c3cb241c95618e20892f9672a"
 
-async@^2.1.4, async@^2.4.1, async@^2.6.0:
+async@^2.1.4, async@^2.4.1:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
     lodash "^4.14.0"
-
-async@^2.6.2:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.6.3.tgz#d72625e2344a3656e3a3ad4fa749fa83299d82ff"
-  integrity sha512-zflvls11DCy+dQWzTW2dzuilv8Z5X/pjfmZOWba6TNIVDm+2UDaJmXSOXlasHKfNBs8oo3M0aT50fDEWfKZjXg==
-  dependencies:
-    lodash "^4.17.14"
 
 async@^2.6.4:
   version "2.6.4"
@@ -258,6 +259,11 @@ async@^2.6.4:
   integrity sha512-mzo5dfJYwAn29PeiJ0zvwTo04zj8HDJj0Mn8TD7sno7q12prdbnasKJHhkm2c1LgrhlJ0teaea8860oxi51mGA==
   dependencies:
     lodash "^4.17.14"
+
+async@^3.2.4:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/async/-/async-3.2.5.tgz#ebd52a8fdaf7a2289a24df399f8d8485c8a46b66"
+  integrity sha512-baNZyqaaLhyLVKm/DlvdW051MSgO6b8eVfIezl9E5PqWxFgzLm/wQntEW4zOytVburDEr0JlALEpdOFwvErLsg==
 
 asynckit@^0.4.0:
   version "0.4.0"
@@ -685,15 +691,6 @@ cross-spawn@^7.0.2:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
     which "^2.0.1"
-
-crud-service@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/crud-service/-/crud-service-1.1.2.tgz#2cc9b4e64fd038ee09200fba4c3f9cf783646bb0"
-  integrity sha512-nU5i1HVRGIy4vRqz7aPSvmNszmEut746IHg+YR8i81ywk3LE0h0V2Jee3uJT8Vvrdt0Q53kMNbzqu6uQJvLG+A==
-  dependencies:
-    async "^2.6.2"
-    lodash.clone "^4.5.0"
-    schemata "^6.0.0"
 
 cryptiles@2.x.x:
   version "2.0.5"
@@ -2840,10 +2837,6 @@ piton-pipe@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/piton-pipe/-/piton-pipe-0.0.4.tgz#18a452861cd280a54f24b0ffff2167cce1e3eb4f"
 
-piton-string-utils@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/piton-string-utils/-/piton-string-utils-0.3.0.tgz#597ef387ad10370e85d4afeda4e48bb164692fa1"
-
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -3158,16 +3151,6 @@ save@^2.3.2:
 sax@^1.2.1:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
-
-schemata@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/schemata/-/schemata-6.0.0.tgz#24bf84a12d2d466e3131587c53221db83dd85f49"
-  integrity sha1-JL+EoS0tRm4xMVh8UyIduD3YX0k=
-  dependencies:
-    async "^2.6.0"
-    is-primitive "^3.0.0"
-    lodash.clonedeep "^4.5.0"
-    piton-string-utils "^0.3.0"
 
 "semver@2 || 3 || 4 || 5", semver@^5.3.0:
   version "5.4.1"

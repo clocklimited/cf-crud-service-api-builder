@@ -1,4 +1,4 @@
-const createCrudService = require('crud-service')
+const createCrudService = require('@clocklimited/crud-service')
 const save = require('save')
 const schemata = require('@clocklimited/schemata')
 const required = require('validity-required')
