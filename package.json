@@ -49,5 +49,8 @@
   },
   "peerDependencies": {
     "@clocklimited/schemata": ">8"
+  },
+  "resolutions": {
+    "lodash": "^4.17.21"
   }
 }
